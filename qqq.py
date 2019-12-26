@@ -1,2 +1,2 @@
-from predict403.predict import pred
-print(pred("D:\Desktop\linebot403\queries\jpg-_9g703jc.jpg"))
+from text_recognition import recognize,decode_predictions
+print(recognize("D:\Desktop\linebot403\example_04.jpg"))

@@ -36,7 +36,8 @@ from linebot.models import (
     SeparatorComponent, QuickReply, QuickReplyButton,
     ImageSendMessage)
 
-from predict403.predictfuck import pred
+from predict403.predict import pred
+from text_recognition import recognize,decode_predictions
 
 app = Flask(__name__)
 
@@ -83,13 +84,17 @@ def handle_content_message(event):
     dist_path = tempfile_path + '.' + ext
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
-    print(dist_path)
+    OCRtext = recognize(dist_path)
     result = pred(dist_path)
-   
+    
+    line_bot_api.reply_message(
+        event.reply_token, [
+            TextSendMessage(text= OCRtext)
+        ])
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text=result)
+            TextSendMessage(text= result)
         ])
 
 
