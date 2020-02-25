@@ -87,15 +87,16 @@ def handle_content_message(event):
     OCRtext = recognize(dist_path)
     result = pred(dist_path)
     
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text= OCRtext)
-        ])
-
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text= result)
-        ])
+    if OCRtext != "":
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text= OCRtext)
+            ])
+    else:
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text= result)
+            ])
 
 
 if __name__ == "__main__":

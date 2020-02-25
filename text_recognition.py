@@ -4,6 +4,7 @@
 
 # import the necessary packages
 from imutils.object_detection import non_max_suppression
+from LCS import LCS
 import numpy as np
 import pytesseract
 import cv2
@@ -149,13 +150,26 @@ def recognize(img):
 	# sort the results bounding box coordinates from top to bottom
 	results = sorted(results, key=lambda r:r[0][1])
 
+	shops=["ZARA","誠品","超市"]
 	# loop over the results
 	allstr=""
 	for ((startX, startY, endX, endY), text) in results:
 		# display the text OCR'd by Tesseract
-		print(text)
+		#print(text)
 		if(allstr!=""):
 			allstr = allstr + '\n' 
-		allstr = allstr + text 
-	return allstr
+		allstr = allstr + text
+	print(allstr)
+	for shop in shops:
+		if(LCS(shop,allstr) > len(shop)/2):
+			return shop
+	return ""
+
+if __name__ == "__main__":
+	print("HELLO")
+	print(recognize("D:\Desktop\linebot403\example_01.jpg"))
+
+
+
+	
 

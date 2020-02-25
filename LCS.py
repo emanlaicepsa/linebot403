@@ -1,5 +1,7 @@
 def LCS(text1, text2):
     m, n = len(text1), len(text2)
+    if(m==0 or n==0):
+        return 0
     dp = [[0] * n for _ in range(m)]
     for i in range(m):
         for j in range(n):
@@ -11,6 +13,7 @@ def LCS(text1, text2):
                 dp[i][j] = dp[i][j-1]
     return dp[m-1][n-1]
 
-a = input()
-b = input()
-print(LCS(a,b))
+if __name__ == "__main__":
+    a = input()
+    b = input()
+    print(LCS(a,b))
